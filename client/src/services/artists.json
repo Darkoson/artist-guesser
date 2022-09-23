@@ -1,0 +1,26 @@
+[
+  { "artistId": 32940, "artistName": "Michael Jackson" },
+  { "artistId": 5352135, "artistName": "Lucky Dube" },
+  { "artistId": 63729, "artistName": "Céline Dion" },
+  { "artistId": 3261325, "artistName": "Akon" },
+
+  { "artistId": 301615533, "artistName": "Kojo Antwi" },
+  { "artistId": 383017116, "artistName": "Daddy Lumba" },
+  { "artistId": 326184896, "artistName": "Sarkodie" },
+  { "artistId": 951831329, "artistName": "Medikal" },
+
+  { "artistId": 690365212, "artistName": "Shatta Wale" },
+  { "artistId": 1230257340, "artistName": "Kuami Eugene" },
+  { "artistId": 1419227, "artistName": "Beyoncé" },
+  { "artistId": 833611554, "artistName": "Korede Bello" },
+
+  { "artistId": 254654363, "artistName": "Davido" },
+  { "artistId": 3174628, "artistName": "Bob Marley" },
+  { "artistId": 463009, "artistName": "Jennifer Lopez" },
+  { "artistId": 108757588, "artistName": "P-Square" },
+
+  { "artistId": 807028, "artistName": "Westlife" },
+  { "artistId": 524856, "artistName": "UB40" },
+  { "artistId": 27340, "artistName": "Don Williams" },
+  { "artistId": 204567355, "artistName": "Kwaku Gyasi" }
+]

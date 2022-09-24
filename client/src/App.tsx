@@ -1,41 +1,60 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-import AlbumList from "./components/albums";
-import InputForm from "./components/input-form";
-import { Artist } from "./interfaces";
+import Header from "./components/header";
+import PlayGame from "./components/play-game";
+import { getRandomArtistAndAlbums } from "./services";
+import { AppDispatch } from "./shared/store/config";
+import {
+  selectStoreAlbums,
+  selectStoreArtist,
+  selectStoreSettings,
+  setStoreAlbums,
+  setStoreArtist,
+} from "./shared/store/game-slice";
 
 function App() {
-  const [attempt, setAttempt] = useState(0);
-  let selectedArtist: Artist = { id: 1, name: "Artist" };
+  const selectedArtist = useSelector(selectStoreArtist);
+  const selectedAlbums = useSelector(selectStoreAlbums);
+  const gameSettings = useSelector(selectStoreSettings);
 
-  useEffect(() => {}, []);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const check = (found: boolean) => {
-    setAttempt((at) => at + 1);
+  const [usedArtistIds, setUsedArtistIds] = useState<number[]>([]);
 
-    return;
+  useEffect(() => {
+    if (!selectedArtist) {
+      changeArtistAndAlbums();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const changeArtistAndAlbums = () => {
+    getRandomArtistAndAlbums(usedArtistIds).then(([newArtist, newAlbums]) => {
+      console.log("new artist:", newArtist.name);
+      //console.log("new albums:", newAlbums);
+
+      setUsedArtistIds([...usedArtistIds, newArtist.id]);
+      dispatch(setStoreArtist(newArtist));
+      dispatch(setStoreAlbums(newAlbums));
+    });
   };
 
   return (
     <AppContainer>
-      <h2 className="app-title"> Guess The Artist </h2>
-      <header>
-        <h3 className="round">Round: 1 </h3>
-        <h3 className="scores">
-          Total Scores: <span>451</span>
-        </h3>
-      </header>
-
-      <main>
-        <AlbumList />
-        <InputForm
-          emit={check}
-          attempt={attempt}
-          artist={selectedArtist}
-          artwork={""}
-        />
-      </main>
+      <Header scores={gameSettings.scores} round={gameSettings.round} />
+      {selectedArtist && (
+        <main>
+          <PlayGame
+            albums={selectedAlbums}
+            artist={selectedArtist}
+            settings={gameSettings}
+            changeArtistAndAlbums={changeArtistAndAlbums}
+          />
+        </main>
+      )}
     </AppContainer>
   );
 }
@@ -45,26 +64,8 @@ const AppContainer = styled.div`
   border: 1px solid black;
   padding: 10px 50px;
   max-width: 800px;
-  .app-title {
-    text-align: center;
-    font-weight: 1000;
-    color: red;
-  }
-  header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
 
   main {
-    margin-bottom: 50px;
-    display: grid;
-    gap: 80px;
-
-    grid-template-columns: 1fr;
-    @media screen and (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-    }
   }
 `;
 

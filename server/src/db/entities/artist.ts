@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Artist {
-  @PrimaryGeneratedColumn({ type: "bigint" })
+  @PrimaryColumn({ type: "bigint" })
   id: number;
 
   @Column("varchar", { nullable: false })

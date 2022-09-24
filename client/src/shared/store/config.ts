@@ -1,12 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import movieReducer from "./movie-slice";
-import directorReducer from "./director-slice";
+import game from "./game-slice";
 
 export const store = configureStore({
-  reducer: {
-    movies: movieReducer,
-    directors: directorReducer,
-  },
+  reducer: { game },
 });
 
 export type AppState = ReturnType<typeof store.getState>;

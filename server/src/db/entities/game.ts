@@ -12,7 +12,7 @@ export class Game {
   @Column("int4", { default: 5 })
   scores: number;
 
-  @ManyToOne(()=>Player , player=>player.games, {cascade: true})
+  @ManyToOne(()=>Player , player=>player.games)
   player: Player;
 }
 

@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Live at the Rainbow, 4th June 1977 (Remastered)",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/ec/19/1e/ec191e53-351b-f28c-0c8d-ed974e60880a/20UMGIM41161.rgb.jpg/60x60bb.jpg",
+    "artistId": 1
+  },
+  {
+    "id": 2,
+    "name": "The Wailing Wailers",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/ec/19/1e/ec191e53-351b-f28c-0c8d-ed974e60880a/20UMGIM41161.rgb.jpg/60x60bb.jpg",
+    "artistId": 1
+  },
+  {
+    "id": 3,
+    "name": "Dreams of Freedom: Ambient Translations of Bob Marley In Dub",
+    "artwork": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/ec/19/1e/ec191e53-351b-f28c-0c8d-ed974e60880a/20UMGIM41161.rgb.jpg/60x60bb.jpg",
+    "artistId": 1
+  }
+]

@@ -1,10 +1,8 @@
 import React, { FC, useRef, useState } from "react";
 import styled from "styled-components";
-import { Artist } from "../interfaces";
 
 interface InputFormProps {
-  emit: (found: boolean) => void;
-  artist: Artist;
+  emit: (guess: string) => void;
   attempt: number;
   artwork: string;
 }
@@ -12,56 +10,49 @@ interface InputFormProps {
 const InputForm: FC<InputFormProps> = (props) => {
   const inputEl = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [showHint, setShowHint] = useState(true);
-  const points = [5, 3, 1];
 
-  const checkName = () => {
-    let userGuess: string = inputEl.current.value.toLowerCase().trim();
-    let actualName: string = props.artist.name.toLowerCase().trim();
+  const sendName = () => {
+    props.emit(inputEl.current.value);
     inputEl.current.value = "";
-    props.emit(userGuess === actualName);
   };
 
   return (
-    <Container>
-      <div className="form">
-        <div className="question">
-          For <span>{points[props.attempt]}</span> Points <br /> Who is the
-          artist ?
-        </div>
-
-        <div className="user-input">
-          <input type="text" placeholder="Enter Full name" ref={inputEl} />
-          <button onClick={checkName}> Submit</button>
-        </div>
-
-        {props.attempt === 2 && (
-          <div className="hint">
-            <span onClick={() => setShowHint(!showHint)}>See Hint:</span>
-            {showHint && (
-              <div className="artwork">
-                <img src={props.artwork} alt="the artwork of the artist" />
-                <span> Album artwork </span>
-              </div>
-            )}
-          </div>
-        )}
+    <InputFormContainer>
+      <div className="user-input">
+        <input type="text" placeholder="Enter Full name" ref={inputEl} />
+        <button onClick={sendName} disabled={props.attempt > 2}>
+          Submit
+        </button>
       </div>
-    </Container>
+
+      {props.attempt === 2 && (
+        <div className="hint">
+          <span onClick={() => setShowHint(!showHint)}>See Hint:</span>
+          {showHint && (
+            <div className="artwork">
+              <img src={props.artwork} alt="the artwork of the artist" />
+              <span> Album artwork </span>
+            </div>
+          )}
+        </div>
+      )}
+    </InputFormContainer>
   );
 };
 
 export default InputForm;
 
-const Container = styled.div`
+const InputFormContainer = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 20px;
 
-  .form {
+  /* .form {
     display: flex;
     flex-direction: column;
     gap: 30px;
-  }
+  } */
   .hint {
     display: flex;
     flex-direction: row;

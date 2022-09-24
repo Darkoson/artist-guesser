@@ -1,28 +1,33 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { Album } from "../interfaces";
 
-const AlbumList: FC = () => {
+interface AlbumListProps {
+  albums: Album[];
+  attempt: number;
+}
+const AlbumList: FC<AlbumListProps> = (props) => {
   return (
-    <Container>
+    <AlbumListContainer>
       <h4>Albums of the Artist</h4>
       <div className="albums">
-        <div className="album">
-          <span>1</span> <div className="album-name"> Lorem, ipsum dolor.</div>
-        </div>
-        <div className="album">
-          <span>1</span> <div className="album-name"> Lorem, ipsum dolor.</div>
-        </div>
-        <div className="album">
-          <span>1</span> <div className="album-name"> Lorem, ipsum dolor.</div>
-        </div>
+        {props.albums.map(
+          (album, idx) =>
+            props.attempt >= idx && (
+              <div key={album.id} className="album">
+                <span>{idx + 1}</span>
+                <div className="album-name"> {album.name}</div>
+              </div>
+            )
+        )}
       </div>
-    </Container>
+    </AlbumListContainer>
   );
 };
 
 export default AlbumList;
 
-const Container = styled.div`
+const AlbumListContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 0.4px dashed lime;

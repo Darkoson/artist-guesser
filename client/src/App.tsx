@@ -7,37 +7,31 @@ import EndGame from "./components/end-game";
 import Header from "./components/header";
 import PlayGame from "./components/play-game";
 import LocalService from "./services/local";
+import { useGameStorage } from "./shared/hooks/use-game-storage";
 import { AppDispatch } from "./shared/store/config";
 import {
+  selectStoreSettings,
   selectStoreAlbums,
   selectStoreArtist,
-  selectStoreSettings,
   setStoreAlbums,
   setStoreArtist,
   setStoreSettings,
 } from "./shared/store/game-slice";
 
 function App() {
-  const artist = useSelector(selectStoreArtist);
-  const albums = useSelector(selectStoreAlbums);
+  const { localStorageToRedux, reduxToLocalStorage } = useGameStorage();
+  // const artist = useSelector(selectStoreArtist);
+  // const albums = useSelector(selectStoreAlbums);
   const settings = useSelector(selectStoreSettings);
 
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
 
   /** This useEffect runs at the begining of the application:
    *  Its purpose is to revive the state of the application from the
    *  local storage of the browser
    */
   useEffect(() => {
-    let storageAlbums = LocalService.getAlbums();
-    let storageArtist = LocalService.getArtist();
-    let storageSettings = LocalService.getSettings();
-
-    if (storageAlbums && storageArtist && storageSettings) {
-      dispatch(setStoreArtist(storageArtist));
-      dispatch(setStoreAlbums(storageAlbums));
-      dispatch(setStoreSettings(storageSettings));
-    }
+    localStorageToRedux();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -50,9 +44,10 @@ function App() {
   useEffect(
     () => {
       window.addEventListener("beforeunload", () => {
-        LocalService.setArtist(artist);
-        LocalService.setAlbums(albums);
-        LocalService.setSettings(settings);
+        reduxToLocalStorage();
+        // LocalService.setArtist(artist);
+        // LocalService.setAlbums(albums);
+        // LocalService.setSettings(settings);
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

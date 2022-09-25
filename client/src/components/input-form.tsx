@@ -2,17 +2,25 @@ import React, { FC, useRef, useState } from "react";
 import styled from "styled-components";
 
 interface InputFormProps {
-  emit: (guess: string) => void;
+  onEmit: (guess: string) => void;
   attempt: number;
   artwork: string;
 }
 
+/**
+ * This component is responsible for:
+ *  - sending the user's input to the parent component
+ *  - displaynig the artwork of one amlbum in case the attempt is: 2
+ * 
+ * @param props :InputFormProps
+ * @returns tsx 
+ */
 const InputForm: FC<InputFormProps> = (props) => {
   const inputEl = useRef() as React.MutableRefObject<HTMLInputElement>;
   const [showHint, setShowHint] = useState(true);
 
   const sendName = () => {
-    props.emit(inputEl.current.value);
+    props.onEmit(inputEl.current.value);
     inputEl.current.value = "";
   };
 

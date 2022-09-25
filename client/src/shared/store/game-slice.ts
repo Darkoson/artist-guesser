@@ -4,20 +4,21 @@ import { AppState } from "./config";
 
 interface GameState {
   username: string;
-  artist: Artist | null;
+  artist: Artist;
   albums: Album[];
   settings: GameSettings;
 }
 
-let initialState: GameState = {
+export const initialGameState: GameState = {
   username: "",
-  artist: null,
+  artist: { id: 0, name: "" },
   albums: [],
   settings: {
     scores: 0,
     round: 1,
     attempt: 0,
     isCorrect: false,
+    endGame: false,
     showFeedback: false,
   },
 };
@@ -25,7 +26,7 @@ let initialState: GameState = {
 const gameSlice = createSlice({
   name: "game",
 
-  initialState,
+  initialState: initialGameState,
 
   reducers: {
     setStoreGame(state, action: PayloadAction<GameState>) {
@@ -36,6 +37,10 @@ const gameSlice = createSlice({
 
     setStoreArtist(state, action: PayloadAction<Artist>) {
       state.artist = action.payload;
+    },
+
+    setStoreSettings(state, action: PayloadAction<GameSettings>) {
+      state.settings = action.payload;
     },
 
     setStoreAlbums(state, action: PayloadAction<Album[]>) {
@@ -56,6 +61,9 @@ const gameSlice = createSlice({
     updateStoreIsCorrect(state, action: PayloadAction<boolean>) {
       state.settings.isCorrect = action.payload;
     },
+    updateStoreEndGame(state, action: PayloadAction<boolean>) {
+      state.settings.endGame = action.payload;
+    },
     updateStoreShowFeedback(state, action: PayloadAction<boolean>) {
       state.settings.showFeedback = action.payload;
     },
@@ -65,12 +73,14 @@ const gameSlice = createSlice({
 export const {
   setStoreArtist,
   setStoreAlbums,
+  setStoreSettings,
   setStoreGame,
   updateStoreAttempts,
   incrementStoreScores,
   updateStoreIsCorrect,
   updateStoreShowFeedback,
   updateStoreRounds,
+  updateStoreEndGame,
 } = gameSlice.actions;
 
 const gameState = (appState: AppState) => appState.game;

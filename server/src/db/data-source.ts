@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
-import { ArtistService } from "../services/artist-service";
-import artists from "./artists.json"; 
-import dotenv from "dotenv"; 
+import { Service } from "../services";
+import artists from "./artists.json";
+import dotenv from "dotenv";
 //import "reflect-metadata";
 
 dotenv.config();
@@ -19,11 +19,11 @@ export const AppDataSource = new DataSource({
 });
 
 export const seedData = () => {
-  ArtistService.listArtists().then((list) => {
+  Service.listArtists().then((list) => {
     if (list.length === 0) {
-      ArtistService.createBulkArtist(artists).then(
-        artists => console.log("Newly inserted artists:", artists)
-      )
+      Service.createBulkArtist(artists).then((artists) =>
+        console.log("Newly inserted artists:", artists)
+      );
     }
   });
 };

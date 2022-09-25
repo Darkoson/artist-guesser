@@ -1,18 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Player } from "./player";
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from "typeorm";
 
 @Entity()
-export class Game {
-  @PrimaryGeneratedColumn({ type: "bigint" })
-  id: number;
+export class Games {
+  @PrimaryColumn({ type: "varchar" })
+  username: string;
 
   @Column("int4", { default: 5 })
-  completedRound: number;
+  roundsCompleted: number;
 
-  @Column("int4", { default: 5 })
+  @Column("int4", { default: 0 })
   scores: number;
 
-  @ManyToOne(()=>Player , player=>player.games)
-  player: Player;
+  @Column("int4", { default: 0 })
+  gamesCount: number;
 }
-

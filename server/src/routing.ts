@@ -1,15 +1,17 @@
 import express from "express"; 
-import * as ArtistCtrl from "./controllers/artist-controller";
+import * as Ctrl from "./controllers";
 
 const router = express.Router();
  
 
 // artist routes
-router.post("/artists", ArtistCtrl.postArtist);
-router.post("/artists/bulk", ArtistCtrl.postBulkArtist);
-router.get("/artists", ArtistCtrl.getAllArtists);
-router.get("/artists/:id", ArtistCtrl.getArtist);
-router.put("/artists/:id", ArtistCtrl.updateArtist);
-router.delete("/artists/:id", ArtistCtrl.deleteArtist);
+router.post("/games", Ctrl.postGame);
+
+router.post("/artists", Ctrl.postArtist);
+router.post("/artists/bulk", Ctrl.postBulkArtist);
+router.get("/artists", Ctrl.getAllArtists);
+router.get("/artists/:id", Ctrl.getArtist);
+router.put("/artists/:id", Ctrl.updateArtist);
+router.delete("/artists/:id", Ctrl.deleteArtist);
 
 export default router;

@@ -1,7 +1,8 @@
 import { AppDataSource as db } from "../db/data-source";
 import { Artist } from "../db/entities/artist";
+import { Games } from "../db/entities/game";
 
-export class ArtistService {
+export class Service {
   static createArtist = (data: Artist): Promise<Artist> => {
     return db.getRepository(Artist).save(data);
   };
@@ -33,5 +34,10 @@ export class ArtistService {
   static deleteArtist = async (id: number): Promise<any> => {
     let result = await db.getRepository(Artist).delete(id);
     return result.affected;
+  };
+
+  static saveGame = (data: Partial<Games>): Promise<Games[]> => {
+    db.getRepository(Games).save(data);
+    return db.getRepository(Games).find();
   };
 }

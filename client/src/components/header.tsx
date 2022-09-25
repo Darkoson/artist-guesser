@@ -16,9 +16,11 @@ const Header = () => {
     <HeaderContainer>
       <h2 className="app-title"> Guess The Artist </h2>
       <header>
-        <h3 className="round">Round: {round} </h3>
+        <h3 className="round">
+          Round: <span className="rounds"> {round}</span>
+        </h3>
         <h3 className="scores">
-          Total Scores: <span>{scores}</span>
+          Total Scores: <span className="points">{scores}</span>
         </h3>
       </header>
     </HeaderContainer>
@@ -32,6 +34,20 @@ const HeaderContainer = styled.div`
     text-align: center;
     font-weight: 1000;
     color: red;
+  }
+  .points {
+    padding: 2px 20px;
+    background-color: #0c046c;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+  }
+  .rounds {
+    padding: 2px 20px;
+    background-color: #6e0546;
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
   }
   header {
     display: flex;

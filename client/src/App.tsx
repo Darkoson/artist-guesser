@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import EndGame from "./components/end-game";
 
 import Header from "./components/header";
 import PlayGame from "./components/play-game";
@@ -17,9 +18,9 @@ import {
 } from "./shared/store/game-slice";
 
 function App() {
-  const selectedArtist = useSelector(selectStoreArtist);
-  const selectedAlbums = useSelector(selectStoreAlbums);
-  const selectedSettings = useSelector(selectStoreSettings);
+  const artist = useSelector(selectStoreArtist);
+  const albums = useSelector(selectStoreAlbums);
+  const settings = useSelector(selectStoreSettings);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -49,9 +50,9 @@ function App() {
   useEffect(
     () => {
       window.addEventListener("beforeunload", () => {
-        LocalService.setArtist(selectedArtist);
-        LocalService.setAlbums(selectedAlbums);
-        LocalService.setSettings(selectedSettings);
+        LocalService.setArtist(artist);
+        LocalService.setAlbums(albums);
+        LocalService.setSettings(settings);
       });
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,9 +62,7 @@ function App() {
   return (
     <AppContainer>
       <Header />
-      <main>
-        <PlayGame />
-      </main>
+      <main>{settings.endGame ? <EndGame /> : <PlayGame />}</main>
     </AppContainer>
   );
 }
@@ -71,7 +70,7 @@ function App() {
 const AppContainer = styled.div`
   margin: auto;
   border: 1px solid black;
-  padding: 10px 50px;
+  padding: 10px 20px;
   max-width: 800px;
 
   main {

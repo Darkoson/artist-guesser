@@ -34,6 +34,9 @@ const ScoresBoard: FC<ScoresBoardProps> = (props) => {
 
 const ScoresBoardContainer = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   button {
     max-width: 200px;
     right: 20px;
@@ -48,6 +51,7 @@ const ScoresBoardContainer = styled.div`
       color: white;
     }
   }
+
   .list {
     margin-top: 50px;
     width: 100%;

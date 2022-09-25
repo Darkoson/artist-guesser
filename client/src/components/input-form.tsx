@@ -54,7 +54,7 @@ const InputFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  gap: 20px;
+  gap: 30px;
 
   /* .form {
     display: flex;

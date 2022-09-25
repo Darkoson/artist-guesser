@@ -163,10 +163,9 @@ const PlayGame = () => {
       <AlbumList albums={albums} attempt={attempt} />
 
       <div className="form">
-        <div className="test">attempt tried : {attempt}</div>
-        <div className="test">round : {round}</div>
+        <div className="test">Attempt tried : {attempt}</div>
         <div className="question">
-          For <span>{points[attempt]}</span> Points <br />
+          For <span className="points">{points[attempt]}</span> Points :
           Who is the artist ?
         </div>
         <div className="input">
@@ -195,8 +194,17 @@ const PlayGameContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 80px;
-
+  .points {
+    padding: 2px 10px;
+    background-color: brown;
+    color: white;
+    font-size: x-small;
+    border-radius: 8px;
+  }
   .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     .input {
       display: grid;
       grid-template-columns: 50px 1fr;

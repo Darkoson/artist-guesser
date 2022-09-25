@@ -9,7 +9,7 @@ interface AlbumListProps {
 const AlbumList: FC<AlbumListProps> = (props) => {
   return (
     <AlbumListContainer>
-      <h4>Albums of the Artist</h4>
+      <h4>Some Albums of the Artist</h4>
       <div className="albums">
         {props.albums.map(
           (album, idx) =>
@@ -31,10 +31,11 @@ const AlbumListContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 0.4px dashed lime;
-  gap: 30px;
+  gap: 20px;
 
   .albums {
     display: flex;
+    padding: 5px 10px;
     flex-direction: column;
     gap: 20px;
 
@@ -52,8 +53,8 @@ const AlbumListContainer = styled.div`
         padding: 15px 20px;
       }
       .album-name {
-        border: 1px solid black;
-        height: 30px;
+        /* border: 1px solid black; */
+        /* height: 30px; */
         justify-content: center;
         align-items: center;
         flex-grow: 1;

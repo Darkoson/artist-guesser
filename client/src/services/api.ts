@@ -7,7 +7,7 @@ const iTuneOpts = {
   withCredentials: true,
   headers: {
     "Content-Type": "text/xml",
-    "Access-Control-Allow-Origin": "http://localhost:3000",
+    "Access-Control-Allow-Origin": "*",
     mode: "cors",
     credentials: "include",
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
@@ -22,16 +22,9 @@ const get = async <T = any>(url: string, opts?: any) => {
 const post = async <T = any>(url: string, data?: any, opts?: any) => {
   return axios.post<ApiResult<T>>(`${apiEndpoint}${url}`, data, opts);
 };
-const put = async <T = any>(url: string, data?: any, opts?: any) => {
-  return axios.put<ApiResult<T>>(`${apiEndpoint}${url}`, data, opts);
-};
-
-const del = async <T = any>(url: string, opts?: any) => {
-  return axios.delete<ApiResult<T>>(`${apiEndpoint}${url}`, opts);
-};
 
 const loadArtistFromFile = async (filePath: string, opts?: any) => {
   return axios.get("./artists.json");
 };
 
-export default { post, get, put, del, iTuneGet, loadArtistFromFile } as const;
+export default { post, get,  iTuneGet, loadArtistFromFile } as const;

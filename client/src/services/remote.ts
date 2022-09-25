@@ -7,11 +7,11 @@ export default class RemoteService {
   static iTuneAlbumsOfArtist = async (artistId: number): Promise<Album[]> => {
     let response = await api.iTuneGet(`id=${artistId}&entity=album`);
     if (response.data.resultCount) {
-      response.data.results
+      return response.data.results
         .map((result) => ({
           id: result.collectionId,
           name: result.collectionName,
-          artwork: result.artworkUrl60,
+          artwork: result.artworkUrl100 || result.artworkUrl60,
           artistId: result.artistId,
         }))
         .filter(
@@ -33,9 +33,13 @@ export default class RemoteService {
       const n = newArtists.length;
       return newArtists[Math.floor(Math.random() * n)];
     }
+
     return { id: 0, name: "" };
   };
 
+  /** This functions returns all the artists
+   *  From our API
+   */
   static getArtists = async (): Promise<ApiResult<Artist[]>> => {
     try {
       let response = await api.get<Artist[]>("artists");
@@ -50,12 +54,16 @@ export default class RemoteService {
     }
   };
 
+  /** This function selects a Random
+   *  Artist from our list of artists stored in the database
+   * and randomly selects 3 the albums of the artist, from iTunes
+   */
   static getRandomArtistAndAlbums = async (
     usedIds: number[]
   ): Promise<[Artist, Album[]]> => {
     let artist = await RemoteService.getRandomArtist(usedIds);
     let foundAlbums = await RemoteService.iTuneAlbumsOfArtist(artist.id);
-    console.log("albums: ", foundAlbums);
+    console.log("iTunes albums: ", foundAlbums);
     let albums = defaultAlbums;
     if (foundAlbums.length > 3) {
       albums = shuffle(foundAlbums).slice(0, 3);
@@ -63,6 +71,10 @@ export default class RemoteService {
     return [artist, albums];
   };
 
+  /** This function is responsible for saving the progression
+   *  of a user and then returns the list of stored games:
+   * - This is used to construct the scores board
+   */
   static saveGame = async (gameData: GameResult): Promise<GameResult[]> => {
     try {
       let response = await api.post<GameResult[]>("games", gameData);

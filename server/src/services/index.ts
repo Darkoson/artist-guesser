@@ -36,8 +36,8 @@ export class Service {
     return result.affected;
   };
 
-  static saveGame = (data: Partial<Games>): Promise<Games[]> => {
-    db.getRepository(Games).save(data);
+  static saveGame = async (data: Partial<Games>): Promise<Games[]> => {
+    await db.getRepository(Games).save(data);
     return db.getRepository(Games).find();
   };
 }

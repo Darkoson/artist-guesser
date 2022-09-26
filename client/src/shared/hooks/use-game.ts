@@ -28,8 +28,11 @@ export const useGame = () => {
    *     retrieving new random artist, old ones are no more selected again
    */
   const getArtistAndAlbumsFromServer = () => {
+    console.log("hook: getArtistAndAlbumsFromServer !");
     RemoteService.getRandomArtistAndAlbums(settings.usedArtistIds).then(
       ([newArtist, newAlbums]) => {
+        console.log("server: remote ramdom server !");
+
         dispatch(updateStoreUsedArtistIds(newArtist.id));
         dispatch(setStoreArtist(newArtist));
         dispatch(setStoreAlbums(newAlbums));
@@ -64,9 +67,9 @@ export const useGame = () => {
    *  - when the user's attempt has reached 3
    * **/
   const nextRound = () => {
+    getArtistAndAlbumsFromServer();
     dispatch(updateStoreRounds(settings.round + 1));
     dispatch(updateStoreAttempts(0));
-    getArtistAndAlbumsFromServer();
   };
 
   /**

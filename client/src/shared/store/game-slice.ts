@@ -52,6 +52,9 @@ const gameSlice = createSlice({
       state.settings.scores += action.payload;
     },
 
+    updateStoreUsername(state, action: PayloadAction<string>) {
+      state.username = action.payload;
+    },
     updateStoreAttempts(state, action: PayloadAction<number>) {
       state.settings.attempt = action.payload;
     },
@@ -79,8 +82,9 @@ export const {
   setStoreAlbums,
   setStoreSettings,
   setStoreGame,
-  updateStoreAttempts,
   incrementStoreScores,
+  updateStoreUsername,
+  updateStoreAttempts,
   updateStoreIsCorrect,
   updateStoreShowFeedback,
   updateStoreRounds,

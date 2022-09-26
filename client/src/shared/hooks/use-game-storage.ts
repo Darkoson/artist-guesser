@@ -19,6 +19,7 @@ export const useGameStorage = () => {
   const albums = useSelector(selectStoreAlbums);
   const settings = useSelector(selectStoreSettings);
 
+  /** Function that saves local storage data into redux store */
   const fromLocalStorageOrServerToRedux = () => {
     // We first need to get the local storage data
     let storageArtist = LocalService.getArtist();
@@ -38,6 +39,7 @@ export const useGameStorage = () => {
     }
   };
 
+  /** This fuction saves the redux data into the local storage */
   const fromReduxToLocalStorage = () => {
     LocalService.setArtist(artist);
     LocalService.setAlbums(albums);

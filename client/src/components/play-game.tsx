@@ -40,14 +40,16 @@ const PlayGame = () => {
     let userGuess: string = guessed.toLowerCase().trim();
     let actualName: string = artist.name.toLowerCase().trim();
     isCorrect = userGuess === actualName;
+
+    // we display the feedback to the user
     GiveUserFeedback(isCorrect);
     if (isCorrect) {
       dispatch(incrementStoreScores(points[attempt]));
     }
 
     attempt++;
-
     dispatch(updateStoreAttempts(attempt));
+
     if (round < 5 && (isCorrect || attempt > 2)) {
       nextRound();
     } else if (round === 5 && (isCorrect || attempt > 2)) {
@@ -75,7 +77,7 @@ const PlayGame = () => {
           Reset
         </button>
         <button className="save" onClick={completeGame}>
-          Save game
+          End game
         </button>
       </div>
     </PlayGameContainer>
@@ -93,7 +95,7 @@ const PlayGameContainer = styled.div`
     padding: 2px 10px;
     background-color: brown;
     color: white;
-    font-size: x-small;
+    font-size: 12px;
     border-radius: 8px;
   }
   .form {

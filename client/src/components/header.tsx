@@ -8,21 +8,21 @@ import { selectStoreSettings } from "../shared/store/game-slice";
  *
  */
 const Header = () => {
-  let { scores, round } = useSelector(selectStoreSettings);
-
-  console.log("inside header: round: ", round, "scores: ", scores);
+  let { scores, round, endGame } = useSelector(selectStoreSettings);
 
   return (
     <HeaderContainer>
       <h2 className="app-title"> Guess The Artist </h2>
-      <header>
-        <h3 className="round">
-          Round: <span className="rounds"> {round}</span>
-        </h3>
-        <h3 className="scores">
-          Total Scores: <span className="points">{scores}</span>
-        </h3>
-      </header>
+      {!endGame && (
+        <header>
+          <h3 className="round">
+            Round: <span className="rounds"> {round}</span>
+          </h3>
+          <h3 className="scores">
+            Total Scores: <span className="points">{scores}</span>
+          </h3>
+        </header>
+      )}
     </HeaderContainer>
   );
 };
@@ -34,6 +34,7 @@ const HeaderContainer = styled.div`
     text-align: center;
     font-weight: 1000;
     color: red;
+    margin-bottom: 20px;
   }
   .points {
     padding: 2px 20px;

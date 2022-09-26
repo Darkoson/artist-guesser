@@ -36,7 +36,7 @@ function App() {
   return (
     <AppContainer>
       <Header />
-      <main>{settings.endGame ? <EndGame /> : <PlayGame />}</main>
+      {settings.endGame ? <EndGame /> : <PlayGame />}
     </AppContainer>
   );
 }

@@ -20,6 +20,7 @@ export const initialGameState: GameState = {
     isCorrect: false,
     endGame: false,
     showFeedback: false,
+    usedArtistIds: [],
   },
 };
 
@@ -67,6 +68,9 @@ const gameSlice = createSlice({
     updateStoreShowFeedback(state, action: PayloadAction<boolean>) {
       state.settings.showFeedback = action.payload;
     },
+    updateStoreUsedArtistIds(state, action: PayloadAction<number>) {
+      state.settings.usedArtistIds.push(action.payload);
+    },
   },
 });
 
@@ -81,6 +85,7 @@ export const {
   updateStoreShowFeedback,
   updateStoreRounds,
   updateStoreEndGame,
+  updateStoreUsedArtistIds,
 } = gameSlice.actions;
 
 const gameState = (appState: AppState) => appState.game;

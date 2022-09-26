@@ -10,30 +10,39 @@ import {
   setStoreArtist,
   setStoreSettings,
 } from "../store/game-slice";
+import { useGame } from "./use-game";
 
 export const useGameStorage = () => {
+  const { getArtistAndAlbumsFromServer } = useGame();
   const dispatch = useDispatch<AppDispatch>();
   const artist = useSelector(selectStoreArtist);
   const albums = useSelector(selectStoreAlbums);
   const settings = useSelector(selectStoreSettings);
 
-  const reduxToLocalStorage = () => {
-    let storageAlbums = LocalService.getAlbums();
+  const fromLocalStorageOrServerToRedux = () => {
+    // We first need to get the local storage data
     let storageArtist = LocalService.getArtist();
+    let storageAlbums = LocalService.getAlbums();
     let storageSettings = LocalService.getSettings();
 
-    if (storageAlbums && storageArtist && storageSettings) {
+    // if the data is available, then we set it in redux store
+    if (storageArtist && storageArtist.id && storageAlbums && storageSettings) {
       dispatch(setStoreArtist(storageArtist));
       dispatch(setStoreAlbums(storageAlbums));
       dispatch(setStoreSettings(storageSettings));
     }
+    // case the local storage data in not available, we get new from server
+    else {
+      // This function automatically updates the redux store
+      getArtistAndAlbumsFromServer();
+    }
   };
 
-  const localStorageToRedux = () => {
+  const fromReduxToLocalStorage = () => {
     LocalService.setArtist(artist);
     LocalService.setAlbums(albums);
     LocalService.setSettings(settings);
   };
 
-  return {reduxToLocalStorage, localStorageToRedux};
+  return { fromReduxToLocalStorage, fromLocalStorageOrServerToRedux };
 };

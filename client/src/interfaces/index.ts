@@ -22,6 +22,7 @@ export interface GameSettings {
   isCorrect: boolean;
   endGame: boolean;
   showFeedback: boolean;
+  usedArtistIds: number[];
 }
 export interface GameResult {
   roundsCompleted: number;

@@ -1,16 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { GameResult } from "../interfaces";
 import RemoteService from "../services/remote";
-import { AppDispatch } from "../shared/store/config";
+import { useGame } from "../shared/hooks/use-game";
 import {
-  initialGameState,
   selectStoreSettings,
   selectStoreUsername,
-  setStoreGame,
-  updateStoreEndGame,
 } from "../shared/store/game-slice";
 import ScoresBoard from "./scores-board";
 
@@ -20,7 +16,7 @@ const EndGame = () => {
   let { scores, round } = useSelector(selectStoreSettings);
   let username = useSelector(selectStoreUsername);
   const inputEl = useRef() as React.MutableRefObject<HTMLInputElement>;
-  const dispatch = useDispatch<AppDispatch>();
+ const {resetGame} = useGame()
 
   useEffect(() => {
     inputEl.current.value = username;
@@ -38,10 +34,7 @@ const EndGame = () => {
     });
   };
 
-  const restartGame = () => {
-    dispatch(setStoreGame(initialGameState));
-    dispatch(updateStoreEndGame(false));
-  };
+
 
   return (
     <EndGameContainer>
@@ -62,7 +55,7 @@ const EndGame = () => {
           </div>
         </div>
       )}
-      <button onClick={restartGame}>Start New Game</button>
+      <button onClick={resetGame}>Start New Game</button>
 
       {showScoreBoard && <ScoresBoard list={boardResults} />}
     </EndGameContainer>

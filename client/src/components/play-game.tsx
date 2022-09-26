@@ -69,7 +69,11 @@ const PlayGame = () => {
         </div>
         <div className="input">
           <Feedback show={showFeedback} status={isCorrect} />
-          <InputForm onEmit={checkInput} attempt={attempt} artwork={""} />
+          <InputForm
+            onEmit={checkInput}
+            attempt={attempt}
+            artwork={albums[0]?.artwork}
+          />
         </div>
       </div>
       <div className="buttons">
@@ -87,6 +91,7 @@ const PlayGame = () => {
 export default PlayGame;
 
 const PlayGameContainer = styled.div`
+width: 100%;
   margin-bottom: 50px;
   display: grid;
   grid-template-columns: 1fr;

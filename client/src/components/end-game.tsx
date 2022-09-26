@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -19,17 +19,18 @@ const EndGame = () => {
   const [username, setUsername] = useState(storeUsername);
   const [showScoreBoard, setShowScoreBoard] = useState(false);
   const [boardResults, setBoardResults] = useState<GameResult[]>([]);
-  const inputEl = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const dispatch = useDispatch<AppDispatch>();
-  const { resetGame, backToGame } = useGame();
+  const { resetGame, canContinueGame, backToGame } = useGame();
+
+  useEffect(() => {}, [storeUsername]);
 
   useEffect(() => {}, [storeUsername]);
 
   const saveGame = () => {
     const data: GameResult = {
       scores,
-      username: inputEl.current.value,
+      username,
       roundsCompleted: round,
     };
     dispatch(updateStoreUsername(username));
@@ -62,7 +63,10 @@ const EndGame = () => {
         </div>
       )}
       <div className="buttons">
-        <button onClick={backToGame}>{"<< Back "}</button>
+        <button onClick={backToGame} disabled={canContinueGame()}>
+          {"<< Back "}
+        </button>
+
         <button onClick={resetGame}>New Game</button>
       </div>
 

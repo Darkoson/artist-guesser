@@ -32,7 +32,7 @@ const InputForm: FC<InputFormProps> = (props) => {
           Submit
         </button>
       </div>
-
+      
       {props.attempt === 2 && (
         <div className="hint">
           <span onClick={() => setShowHint(!showHint)}>See Hint:</span>

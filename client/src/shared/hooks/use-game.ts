@@ -75,6 +75,14 @@ export const useGame = () => {
   /**
    *  This functions is called when the
    */
+  const canContinueGame = () => {
+     return (
+       settings.round === 5 && (settings.isCorrect || settings.attempt > 2)
+     );
+  };
+  /**
+   *  This functions is called when the
+   */
   const backToGame = () => {
     dispatch(updateStoreEndGame(false));
   };
@@ -92,6 +100,7 @@ export const useGame = () => {
     nextRound,
     resetGame,
     completeGame,
+    canContinueGame,
     backToGame,
   };
 };

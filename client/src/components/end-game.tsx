@@ -63,7 +63,7 @@ const EndGame = () => {
         </div>
       )}
       <div className="buttons">
-        <button onClick={backToGame} disabled={canContinueGame()}>
+        <button onClick={backToGame} disabled={!canContinueGame()}>
           {"<< Back "}
         </button>
 

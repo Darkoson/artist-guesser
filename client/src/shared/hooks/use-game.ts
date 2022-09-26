@@ -16,6 +16,10 @@ import {
   updateStoreUsedArtistIds,
 } from "../store/game-slice";
 
+/** This hook contains the building blocks that governs the game
+ * 
+ * @returns 
+ */
 export const useGame = () => {
   const dispatch = useDispatch<AppDispatch>();
   const settings = useSelector(selectStoreSettings);
@@ -23,7 +27,7 @@ export const useGame = () => {
   /**
    * This function makes call to the service that select ramdom artist
    *    from our Backend API and its associated albums from iTunes API
-   *   - When the data is retrieved, it's then stored in the state
+   *   - When the data is retrieved, it's then stored in the redux store
    *   - It keeps track of the already selected artist, so that when
    *     retrieving new random artist, old ones are no more selected again
    */
@@ -76,19 +80,22 @@ export const useGame = () => {
    *  This functions is called when the
    */
   const canContinueGame = () => {
-     return (
-       settings.round === 5 && (settings.isCorrect || settings.attempt > 2)
-     );
+    return !(
+      settings.round === 5 &&
+      (settings.isCorrect || settings.attempt > 2)
+    );
   };
   /**
-   *  This functions is called when the
+   *  This functions is called when the user in on endGame page and
+   *  clicks on "back" button to go back to the previous state of the game.
    */
   const backToGame = () => {
     dispatch(updateStoreEndGame(false));
   };
 
   /**
-   *  This functions is called when the
+   *  This functions is called when the user clicks on "end game" button
+   *
    */
   const completeGame = () => {
     dispatch(updateStoreEndGame(true));
